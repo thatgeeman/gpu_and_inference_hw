@@ -1,0 +1,73 @@
+op0: SchedulerNode(ComputedBuffer)
+op0.writes = [MemoryDep('buf0', c0, {c0: 67108864})]
+op0.unmet_dependencies = []
+op0.met_dependencies = [MemoryDep('arg0_1', c0, {c0: 67108864})]
+op0.outputs = [
+    buf0: ComputedBuffer
+    buf0.layout = FixedLayout('cuda:0', torch.float32, size=[67108864], stride=[1])
+    buf0.users = [NodeUser(node=OUTPUT, can_inplace=False, is_weak=False)]
+]
+op0.group.device = cuda:0
+op0.group.iteration = (67108864, 1)
+op0.sizes = ([67108864], [])
+arg0_1_layout = FixedLayout('cuda:0', torch.float32, size=[67108864], stride=[1])
+buf0_layout = FixedLayout('cuda:0', torch.float32, size=[67108864], stride=[1])
+class op0_loop_body:
+    var_ranges = {p0: 67108864}
+    index0 = p0
+    def body(self, ops):
+        get_index = self.get_index('index0')
+        load = ops.load('arg0_1', get_index)
+        get_index_1 = self.get_index('index0')
+        load_1 = ops.load('arg0_1', get_index_1)
+        mul = ops.mul(load, load_1)
+        get_index_2 = self.get_index('index0')
+        load_2 = ops.load('arg0_1', get_index_2)
+        add = ops.add(mul, load_2)
+        get_index_3 = self.get_index('index0')
+        load_3 = ops.load('arg0_1', get_index_3)
+        mul_1 = ops.mul(add, load_3)
+        get_index_4 = self.get_index('index0')
+        load_4 = ops.load('arg0_1', get_index_4)
+        add_1 = ops.add(mul_1, load_4)
+        get_index_5 = self.get_index('index0')
+        load_5 = ops.load('arg0_1', get_index_5)
+        mul_2 = ops.mul(add_1, load_5)
+        get_index_6 = self.get_index('index0')
+        load_6 = ops.load('arg0_1', get_index_6)
+        add_2 = ops.add(mul_2, load_6)
+        get_index_7 = self.get_index('index0')
+        load_7 = ops.load('arg0_1', get_index_7)
+        mul_3 = ops.mul(add_2, load_7)
+        get_index_8 = self.get_index('index0')
+        load_8 = ops.load('arg0_1', get_index_8)
+        add_3 = ops.add(mul_3, load_8)
+        get_index_9 = self.get_index('index0')
+        load_9 = ops.load('arg0_1', get_index_9)
+        mul_4 = ops.mul(add_3, load_9)
+        get_index_10 = self.get_index('index0')
+        load_10 = ops.load('arg0_1', get_index_10)
+        add_4 = ops.add(mul_4, load_10)
+        get_index_11 = self.get_index('index0')
+        load_11 = ops.load('arg0_1', get_index_11)
+        mul_5 = ops.mul(add_4, load_11)
+        get_index_12 = self.get_index('index0')
+        load_12 = ops.load('arg0_1', get_index_12)
+        add_5 = ops.add(mul_5, load_12)
+        get_index_13 = self.get_index('index0')
+        load_13 = ops.load('arg0_1', get_index_13)
+        mul_6 = ops.mul(add_5, load_13)
+        get_index_14 = self.get_index('index0')
+        load_14 = ops.load('arg0_1', get_index_14)
+        add_6 = ops.add(mul_6, load_14)
+        get_index_15 = self.get_index('index0')
+        load_15 = ops.load('arg0_1', get_index_15)
+        mul_7 = ops.mul(add_6, load_15)
+        get_index_16 = self.get_index('index0')
+        load_16 = ops.load('arg0_1', get_index_16)
+        add_7 = ops.add(mul_7, load_16)
+        get_index_17 = self.get_index('index0')
+        store = ops.store('buf0', get_index_17, add_7, None)
+        return store
+
+

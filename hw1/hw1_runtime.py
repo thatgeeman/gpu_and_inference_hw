@@ -22,12 +22,26 @@ GPU_SPECS = {
         "peak_flops": 91.6e12,  # 91.6 TFLOP/s FP32
         "peak_bw": 864e9,  # 864 GB/s GDDR6 bandwidth
     },
+    "NVIDIA RTX 2000 Ada Generation Laptop GPU": {
+        # from https://www.nvidia.com/en-us/products/workstations/professional-laptops/compare/
+        "label": "NVIDIA RTX 2000 Ada Generation Laptop GPU",
+        "peak_flops": 14.5e12,  # 14.5 TFLOP/s FP32
+        "peak_bw": 256e9,  # 256 GB/s GDDR6 bandwidth
+    },
+    "RTX2060": {
+        # from https://www.nvidia.com/de-at/geforce/graphics-cards/compare/?section=compare-20
+        "label": "MSI GeForce RTX 2060 VENTUS 12G",
+        "peak_flops": 7.18e12,  # 7.18 TFLOP/s FP32
+        "peak_bw": 336e9,  # 336 GB/s GDDR6 bandwidth
+    },
 }
 
 
 def _get_gpu_specs():
     if not torch.cuda.is_available():
-        raise RuntimeError("CUDA is not available. Please set the GPU roofline settings yourself.")
+        raise RuntimeError(
+            "CUDA is not available. Please set the GPU roofline settings yourself."
+        )
 
     device_name = torch.cuda.get_device_name(0)
     for gpu_key, specs in GPU_SPECS.items():
@@ -184,11 +198,19 @@ def plot_roofline(results):
     )
 
     baseline_results = [r for r in results if r.get("series") == "baseline"]
-    eager_results = [r for r in results if r.get("series") == "elementwise" and r.get("variant") == "eager"]
-    compiled_results = [
-        r for r in results if r.get("series") == "elementwise" and r.get("variant") == "compiled"
+    eager_results = [
+        r
+        for r in results
+        if r.get("series") == "elementwise" and r.get("variant") == "eager"
     ]
-    mm_results = [r for r in results if r.get("series") == "matmul" or r["num_ops"] == -1]
+    compiled_results = [
+        r
+        for r in results
+        if r.get("series") == "elementwise" and r.get("variant") == "compiled"
+    ]
+    mm_results = [
+        r for r in results if r.get("series") == "matmul" or r["num_ops"] == -1
+    ]
 
     if baseline_results:
         ais = [r["arithmetic_intensity"] for r in baseline_results]
