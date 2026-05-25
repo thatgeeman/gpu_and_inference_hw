@@ -1,0 +1,44 @@
+======================================================================
+HW1: GPU Roofline Model — NVIDIA RTX 2000 Ada Generation Laptop GPU
+======================================================================
+
+Theoretical specs (FP32):
+  Peak compute:    14 TFLOP/s
+  Peak bandwidth:  0.26 TB/s
+  Ridge point:     56.6 FLOP/Byte
+
+Running benchmarks (first run compiles kernels via torch.compile)...
+  lowest-AI:  3.163 ms | BW: 0.17 TB/s
+    1 ops (   eager): 7.803 ms | AI: 0.167 FLOP/B | 0.02 TFLOP/s
+W0525 12:21:15.398000 49766 /home/gg/.pyenv/versions/3.13.3/envs/perf-engg-nebius-venv/lib/python3.13/site-packages/torch/_inductor/debug.py:507] [0/0] model__0_inference_0 debug trace: /home/gg/nebius/gpu_and_inference_hw/torch_compile_debug/run_2026_05_25_12_21_12_157666-pid_49766/torchinductor/model__0_inference_0.0
+    1 ops (compiled): 3.578 ms | AI: 0.25 FLOP/B | 0.04 TFLOP/s
+    2 ops (   eager): 17.044 ms | AI: 0.167 FLOP/B | 0.02 TFLOP/s
+W0525 12:21:19.647000 49766 /home/gg/.pyenv/versions/3.13.3/envs/perf-engg-nebius-venv/lib/python3.13/site-packages/torch/_inductor/debug.py:507] [0/1] model__1_inference_1 debug trace: /home/gg/nebius/gpu_and_inference_hw/torch_compile_debug/run_2026_05_25_12_21_12_157666-pid_49766/torchinductor/model__1_inference_1.1
+    2 ops (compiled): 2.876 ms | AI: 0.5 FLOP/B | 0.09 TFLOP/s
+    4 ops (   eager): 35.330 ms | AI: 0.167 FLOP/B | 0.02 TFLOP/s
+W0525 12:21:25.160000 49766 /home/gg/.pyenv/versions/3.13.3/envs/perf-engg-nebius-venv/lib/python3.13/site-packages/torch/_inductor/debug.py:507] [0/2] model__2_inference_2 debug trace: /home/gg/nebius/gpu_and_inference_hw/torch_compile_debug/run_2026_05_25_12_21_12_157666-pid_49766/torchinductor/model__2_inference_2.2
+    4 ops (compiled): 2.771 ms | AI: 1 FLOP/B | 0.19 TFLOP/s
+    8 ops (   eager): 71.987 ms | AI: 0.167 FLOP/B | 0.01 TFLOP/s
+W0525 12:21:35.128000 49766 /home/gg/.pyenv/versions/3.13.3/envs/perf-engg-nebius-venv/lib/python3.13/site-packages/torch/_inductor/debug.py:507] [0/3] model__3_inference_3 debug trace: /home/gg/nebius/gpu_and_inference_hw/torch_compile_debug/run_2026_05_25_12_21_12_157666-pid_49766/torchinductor/model__3_inference_3.3
+    8 ops (compiled): 2.969 ms | AI: 2 FLOP/B | 0.36 TFLOP/s
+   16 ops (   eager): 145.386 ms | AI: 0.167 FLOP/B | 0.01 TFLOP/s
+W0525 12:21:54.651000 49766 /home/gg/.pyenv/versions/3.13.3/envs/perf-engg-nebius-venv/lib/python3.13/site-packages/torch/_inductor/debug.py:507] [0/4] model__4_inference_4 debug trace: /home/gg/nebius/gpu_and_inference_hw/torch_compile_debug/run_2026_05_25_12_21_12_157666-pid_49766/torchinductor/model__4_inference_4.4
+   16 ops (compiled): 2.832 ms | AI: 4 FLOP/B | 0.76 TFLOP/s
+   32 ops (   eager): 291.906 ms | AI: 0.167 FLOP/B | 0.01 TFLOP/s
+W0525 12:22:32.681000 49766 /home/gg/.pyenv/versions/3.13.3/envs/perf-engg-nebius-venv/lib/python3.13/site-packages/torch/_inductor/debug.py:507] [0/5] model__5_inference_5 debug trace: /home/gg/nebius/gpu_and_inference_hw/torch_compile_debug/run_2026_05_25_12_21_12_157666-pid_49766/torchinductor/model__5_inference_5.5
+   32 ops (compiled): 2.891 ms | AI: 8 FLOP/B | 1.49 TFLOP/s
+   64 ops (   eager): 585.099 ms | AI: 0.167 FLOP/B | 0.01 TFLOP/s
+W0525 12:23:48.477000 49766 /home/gg/.pyenv/versions/3.13.3/envs/perf-engg-nebius-venv/lib/python3.13/site-packages/torch/_inductor/debug.py:507] [0/6] model__6_inference_6 debug trace: /home/gg/nebius/gpu_and_inference_hw/torch_compile_debug/run_2026_05_25_12_21_12_157666-pid_49766/torchinductor/model__6_inference_6.6
+   64 ops (compiled): 3.442 ms | AI: 16 FLOP/B | 2.50 TFLOP/s
+  128 ops (   eager): 1171.643 ms | AI: 0.167 FLOP/B | 0.01 TFLOP/s
+W0525 12:26:20.418000 49766 /home/gg/.pyenv/versions/3.13.3/envs/perf-engg-nebius-venv/lib/python3.13/site-packages/torch/_inductor/debug.py:507] [0/7] model__7_inference_7 debug trace: /home/gg/nebius/gpu_and_inference_hw/torch_compile_debug/run_2026_05_25_12_21_12_157666-pid_49766/torchinductor/model__7_inference_7.7
+  128 ops (compiled): 3.301 ms | AI: 32 FLOP/B | 5.20 TFLOP/s
+  matmul 1024×1024: 0.450 ms | AI: 170.7 FLOP/B | 4.77 TFLOP/s
+  matmul 2048×2048: 3.416 ms | AI: 341.3 FLOP/B | 5.03 TFLOP/s
+  matmul 4096×4096: 28.996 ms | AI: 682.7 FLOP/B | 4.74 TFLOP/s
+
+Generating plots...
+
+Roofline plot saved to /home/gg/nebius/gpu_and_inference_hw/hw1/results/roofline.png
+
+Done! Check the results/ directory for plots.
