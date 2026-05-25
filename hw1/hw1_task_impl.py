@@ -159,6 +159,7 @@ def compute_elementwise_metrics(num_elements, num_ops, bytes_per_element, ms, va
 #
 # A 1024×1024 matmul produces a relatively small output tile workload.
 # On an H100 with 132 streaming multiprocessors (SM), the tile grid may not fill all SMs evenly, leading to low utilization.
+# As we increase it to 2048x2048 or 4096x4096, the workload becomes large enough to better utilize the GPU's parallelism, improving FLOP/s.
 #
 # Q3. Between `64 ops` and `128 ops`, runtime increases more noticeably than it
 # did for smaller operations. What does that suggest about what resource is

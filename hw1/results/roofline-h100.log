@@ -1,0 +1,45 @@
+(nebius) gg@computeinstance-e00g6pdhm1y61nnjcm:~$ python hw1_task.py
+======================================================================
+HW1: GPU Roofline Model — NVIDIA H100 80GB HBM3
+======================================================================
+
+Theoretical specs (FP32):
+  Peak compute:    67 TFLOP/s
+  Peak bandwidth:  3.35 TB/s
+  Ridge point:     20.0 FLOP/Byte
+
+Running benchmarks (first run compiles kernels via torch.compile)...
+  lowest-AI:  0.184 ms | BW: 2.92 TB/s
+    1 ops (   eager): 0.448 ms | AI: 0.167 FLOP/B | 0.30 TFLOP/s
+W0525 11:16:17.538000 3764 .venvs/nebius/lib/python3.12/site-packages/torch/_inductor/debug.py:507] [0/0] model__0_inference_0 debug trace: /home/gg/torch_compile_debug/run_2026_05_25_11_16_16_201774-pid_3764/torchinductor/model__0_inference_0.0
+    1 ops (compiled): 0.213 ms | AI: 0.25 FLOP/B | 0.63 TFLOP/s
+    2 ops (   eager): 0.975 ms | AI: 0.167 FLOP/B | 0.28 TFLOP/s
+W0525 11:16:17.907000 3764 .venvs/nebius/lib/python3.12/site-packages/torch/_inductor/debug.py:507] [0/1] model__1_inference_1 debug trace: /home/gg/torch_compile_debug/run_2026_05_25_11_16_16_201774-pid_3764/torchinductor/model__1_inference_1.1
+    2 ops (compiled): 0.212 ms | AI: 0.5 FLOP/B | 1.26 TFLOP/s
+    4 ops (   eager): 2.024 ms | AI: 0.167 FLOP/B | 0.27 TFLOP/s
+W0525 11:16:18.826000 3764 .venvs/nebius/lib/python3.12/site-packages/torch/_inductor/debug.py:507] [0/2] model__2_inference_2 debug trace: /home/gg/torch_compile_debug/run_2026_05_25_11_16_16_201774-pid_3764/torchinductor/model__2_inference_2.2
+    4 ops (compiled): 0.212 ms | AI: 1 FLOP/B | 2.54 TFLOP/s
+    8 ops (   eager): 4.129 ms | AI: 0.167 FLOP/B | 0.26 TFLOP/s
+W0525 11:16:19.717000 3764 .venvs/nebius/lib/python3.12/site-packages/torch/_inductor/debug.py:507] [0/3] model__3_inference_3 debug trace: /home/gg/torch_compile_debug/run_2026_05_25_11_16_16_201774-pid_3764/torchinductor/model__3_inference_3.3
+    8 ops (compiled): 0.243 ms | AI: 2 FLOP/B | 4.42 TFLOP/s
+   16 ops (   eager): 8.336 ms | AI: 0.167 FLOP/B | 0.26 TFLOP/s
+W0525 11:16:21.239000 3764 .venvs/nebius/lib/python3.12/site-packages/torch/_inductor/debug.py:507] [0/4] model__4_inference_4 debug trace: /home/gg/torch_compile_debug/run_2026_05_25_11_16_16_201774-pid_3764/torchinductor/model__4_inference_4.4
+   16 ops (compiled): 0.213 ms | AI: 4 FLOP/B | 10.06 TFLOP/s
+   32 ops (   eager): 16.750 ms | AI: 0.167 FLOP/B | 0.26 TFLOP/s
+W0525 11:16:24.014000 3764 .venvs/nebius/lib/python3.12/site-packages/torch/_inductor/debug.py:507] [0/5] model__5_inference_5 debug trace: /home/gg/torch_compile_debug/run_2026_05_25_11_16_16_201774-pid_3764/torchinductor/model__5_inference_5.5
+   32 ops (compiled): 0.212 ms | AI: 8 FLOP/B | 20.22 TFLOP/s
+   64 ops (   eager): 33.576 ms | AI: 0.167 FLOP/B | 0.26 TFLOP/s
+W0525 11:16:29.316000 3764 .venvs/nebius/lib/python3.12/site-packages/torch/_inductor/debug.py:507] [0/6] model__6_inference_6 debug trace: /home/gg/torch_compile_debug/run_2026_05_25_11_16_16_201774-pid_3764/torchinductor/model__6_inference_6.6
+   64 ops (compiled): 0.213 ms | AI: 16 FLOP/B | 40.31 TFLOP/s
+  128 ops (   eager): 67.229 ms | AI: 0.167 FLOP/B | 0.26 TFLOP/s
+W0525 11:16:39.618000 3764 .venvs/nebius/lib/python3.12/site-packages/torch/_inductor/debug.py:507] [0/7] model__7_inference_7 debug trace: /home/gg/torch_compile_debug/run_2026_05_25_11_16_16_201774-pid_3764/torchinductor/model__7_inference_7.7
+  128 ops (compiled): 0.320 ms | AI: 32 FLOP/B | 53.72 TFLOP/s
+  matmul 1024×1024: 0.066 ms | AI: 170.7 FLOP/B | 32.46 TFLOP/s
+  matmul 2048×2048: 0.348 ms | AI: 341.3 FLOP/B | 49.34 TFLOP/s
+  matmul 4096×4096: 2.649 ms | AI: 682.7 FLOP/B | 51.88 TFLOP/s
+
+Generating plots...
+
+Roofline plot saved to /home/gg/results/roofline.png
+
+Done! Check the results/ directory for plots.
